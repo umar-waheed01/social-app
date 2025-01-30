@@ -29,7 +29,7 @@ const SignUp = () => {
     setLoading(true);
   
     try {
-      const { data:{session}, error } = await supabase.auth.signUp({
+      const { user,session, error } = await supabase.auth.signUp({
         email,
         password,
         options:{
@@ -40,15 +40,15 @@ const SignUp = () => {
       });
   
       if (error) {
-        console.error("Supabase error: ", error); // Log the error
+        console.error("Supabase error: ", error);
         Alert.alert("Error", error.message);
       } else {
-        console.log("SignUp data:", data); // Log the response data
+        console.log("SignUp successfull:", user);
         Alert.alert("Success", "Account created successfully!");
-        navigation.navigate("Dashboard"); // Redirect to dashboard after successful signup
+        navigation.navigate("Dashboard"); 
       }
     } catch (error) {
-      console.error("Unexpected error: ", error); // Log unexpected errors
+      console.error("Unexpected error: ", error); 
       Alert.alert("Error", "Something went wrong. Please try again.");
     } finally {
       setLoading(false);
@@ -104,7 +104,7 @@ const SignUp = () => {
     <ScrollView contentContainerStyle={styles.container}>
       <View>
         <View style={styles.header}>
-          <Image source={require("../../../assets/images/honk.png")} style={styles.headerLogo} />
+          <Image source={require("../../../assets/honk.png")} style={styles.headerLogo} />
         </View>
 
         <Text style={styles.title}>Create an account</Text>

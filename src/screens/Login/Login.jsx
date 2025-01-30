@@ -78,7 +78,7 @@ const Login = () => {
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.header}>
-          <Image source={require("../../../assets/images/honk.png")} style={styles.headerImage} />
+          <Image source={require("../../../assets/honk.png")} style={styles.headerImage} />
         </View>
 
         <Text style={styles.title}>Honk</Text>
