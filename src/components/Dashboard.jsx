@@ -84,7 +84,7 @@ const Dashboard = () => {
       console.log("session user", session?.user);
       if (session) {
         setAuth(session?.user); 
-        updateUserData(session?.user)
+        updateUserData(session?.user, session?.user_metadata?.email)
       } else {
         setAuth(null); 
         Navigation.navigate("Login")
@@ -92,8 +92,9 @@ const Dashboard = () => {
     });
   },[]);
 
-  const updateUserData =async (user) =>{
+  const updateUserData =async (user,email) =>{
     let res = await getuserData(user?.id)
+    if(res.succcess) setUserData(...res.data,email)
     console.log("got user data",res)
   }
 

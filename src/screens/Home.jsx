@@ -11,6 +11,9 @@ import Avatar from '../components/Avatar'
 
 const Home = () => {
   const Navigation = useNavigation()
+    const { user, setAuth } = useAuth();
+    console.log("UserHome+++++++++++++++",user)
+  
   // const { user, setAuth } = useAuth()
   // console.log("User",user)
 
@@ -40,7 +43,7 @@ const Home = () => {
 
           <Pressable onPress={()=>Navigation.navigate("Profile")} >
           <Avatar size={28} rounded={20}
-          // uri={user?.image} 
+          uri={user?.user_metadata?.image} 
           /> 
           </Pressable>
 

@@ -33,6 +33,7 @@ import SignUp from './src/screens/SignUp/SignUp';
 import Notifications from './src/screens/Notifications';
 import Createpost from './src/screens/Createpost';
 import profile from './src/screens/profile';
+import EditProfile from './src/components/EditProfile';
 
 const Stack = createNativeStackNavigator();
 
@@ -48,6 +49,7 @@ export default function App() {
           <Stack.Screen name="Notifications" component={Notifications} />
           <Stack.Screen name="CreatePost" component={Createpost} />
           <Stack.Screen name="Profile" component={profile} />
+          <Stack.Screen name="EditProfile" component={EditProfile} />
           
         </Stack.Navigator>
       </NavigationContainer>
