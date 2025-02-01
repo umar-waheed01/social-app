@@ -10,6 +10,12 @@ export const getUserImageSrc = imagePath =>{
     }
 }
 
+export const getSupabaseFileUrl = filePath =>{
+    if(filePath){
+        
+    }
+}
+
 export const uploadFile = async (folderName, fileUri, isImage = true) =>{
     try{
         let fileName = getFilePath(folderName, isImage);

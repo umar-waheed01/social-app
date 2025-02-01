@@ -1,5 +1,5 @@
-import { Button, Pressable, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { Button, FlatList, Pressable, StyleSheet, Text, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import CustomButton from '../UiComponents/CustomButton/CustomButton'
 import { useAuth } from '../context/AuthContext'
 import { supabase } from '../../supabase'
@@ -8,11 +8,30 @@ import Feather from '@expo/vector-icons/Feather';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native'
 import Avatar from '../components/Avatar'
+import { fetchPosts } from '../../services/PostService'
+import PostCard from '../components/PostCard'
 
+var limit = 0;
 const Home = () => {
   const Navigation = useNavigation()
     const { user, setAuth } = useAuth();
     console.log("UserHome+++++++++++++++",user)
+
+    const [posts, setPosts] = useState([])
+
+    useEffect(()=>{
+      getPosts()
+    },[])
+
+    const getPosts = async () =>{
+      limit = limit + 10;
+      let res = await fetchPosts(limit);
+      console.log("got posts result: ",res)
+      if(res.success){
+        setPosts(res.data)
+      }
+
+    }
   
   // const { user, setAuth } = useAuth()
   // console.log("User",user)
@@ -49,6 +68,19 @@ const Home = () => {
 
         </View>
       </View>
+
+      <FlatList 
+          data={posts}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.listStyle}
+          keyExtractor={item => item.id.toString()}
+          renderItem={({item})=> <PostCard
+              item={item}
+              currentUser={user}
+              // Navigataion = {Navigation} 
+              />
+        }
+      />
     </View>
   )
 }
