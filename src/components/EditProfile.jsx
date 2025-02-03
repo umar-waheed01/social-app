@@ -8,10 +8,11 @@ import InputField from '../UiComponents/InputField/InputField'
 import CustomButton from '../UiComponents/CustomButton/CustomButton'
 import { updateUser } from '../../services/userService'
 import * as ImagePicker from 'expo-image-picker';
+import { useNavigation } from '@react-navigation/native'
 
 
 const EditProfile = () => {
-
+  const Navigation = useNavigation()
   const {user: currentUser, setUserData} = useAuth()
 
   const [loading, setLoading] = useState(false)
@@ -27,15 +28,15 @@ const EditProfile = () => {
     if(currentUser){
       setUser({
         name:currentUser?.user_metadata?.name,
-        phoneNumber:currentUser?.user_metadata?.phoneNumber,
-        image:currentUser?.user_metadata?.image,
-        bio:currentUser?.user_metadata?.bio,
-        address:currentUser?.user_metadata?.address
+        phoneNumber:currentUser?.phoneNumber,
+        image:currentUser?.image,
+        bio:currentUser?.bio,
+        address:currentUser?.address
       })
     }
   },[currentUser])
 
-  const imagrSource = user.image && typeof user.image == 'object' ?user.image.uri : getUserImageSrc(user?.image)
+  let imagrSource = user.image && typeof user.image == 'object' ?user.image.uri : getUserImageSrc(user?.image)
 
   const onPickImage =async () => {
     console.log("pick image");
@@ -61,7 +62,7 @@ const EditProfile = () => {
     setLoading(true)
 
     if(typeof image == 'object'){
-      let imageRes = await uploadFile('profile', image?.uri, true)
+      let imageRes = await uploadFile('uploads', image?.uri, true)
       if(imageRes.success) userData.image = imageRes.data
       else userData.image = null;
     }
@@ -73,6 +74,7 @@ const EditProfile = () => {
       if(res?.success){
         setUserData(...currentUser, ...userData)
         Alert.alert('Profile Updated Successfully')
+        Navigation.goBack()
       }else{
         Alert.alert('Error Updating Profile')
       }

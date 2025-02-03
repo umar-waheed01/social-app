@@ -22,7 +22,7 @@ export const uploadFile = async (folderName, fileUri, isImage = true) =>{
         const fileBase64 = await FileSystem.readAsStringAsync(fileUri, { encoding: FileSystem.EncodingType.Base64 });
 
         let imageData = decode(fileBase64);
-        let {data, error} = await supabase.storage.from('images').upload(fileName, imageData, {
+        let {data, error} = await supabase.storage.from('uploads').upload(fileName, imageData, {
             cacheControl: '3600',
             upsert: true,
             contentType:isImage? 'image/*' : 'video/*'
@@ -39,5 +39,5 @@ export const uploadFile = async (folderName, fileUri, isImage = true) =>{
 }
 
 export const getFilePath = (folderName, isImage ) => {
-    return `/${folderName}/${(Date.now()).getTime()}${isImage ? 'jpg' : 'mp4'}`
+    return `/${folderName}/${(new Date()).getTime()}${isImage ? '.png' : '.mp4'}`
 }
