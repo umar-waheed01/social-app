@@ -10,7 +10,7 @@ const Login = () => {
   const navigation = useNavigation();
 
   // Use state for email and password
-  const [email, setEmail] = useState("umar05@gmail.com");
+  const [email, setEmail] = useState("umar009@gmail.com");
   const [password, setPassword] = useState("098098098");
 
   const [loading, setLoading] = useState(false);

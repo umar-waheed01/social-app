@@ -77,7 +77,7 @@ const Home = () => {
           renderItem={({item})=> <PostCard
               item={item}
               currentUser={user}
-              // Navigataion = {Navigation} 
+              Navigataion = {Navigation} 
               />
         }
       />

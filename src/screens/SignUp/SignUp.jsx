@@ -9,27 +9,24 @@ import { styles } from "./style.js";
 const SignUp = () => {
   const navigation = useNavigation();
   
-  // Form state for fields
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  // Errors state
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Handle SignUp
   const handleSignUp = async () => {
     if (!validateFields(name, email, password, confirmPassword)) return;
   
     setLoading(true);
   
     try {
-      const { user,session, error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options:{
@@ -38,12 +35,32 @@ const SignUp = () => {
           }
         }
       });
+
+      const user = data?.user;
+      console.log("&&&&&&&&&&",data?.user)
+
+      if (user) {
+        const { error: dbError } = await supabase.from('users').insert([
+          {
+            id: user.id, 
+            email: email,
+            name: name, 
+            created_at: new Date(),
+          },
+        ]);
+  
+        if (dbError) {
+          console.error('Database Insert Error:', dbError.message);
+        } else {
+          console.log('User stored successfully in users table');
+        }
+      }
   
       if (error) {
         console.error("Supabase error: ", error);
         Alert.alert("Error", error.message);
       } else {
-        console.log("SignUp successfull:", user);
+        console.log("SignUp successfull:", data);
         Alert.alert("Success", "Account created successfully!");
         navigation.navigate("Dashboard"); 
       }
@@ -112,11 +129,10 @@ const SignUp = () => {
           Before you can continue, we need some basic information.
         </Text>
 
-        {/* Name Input Field */}
         <InputField
           label={"Name"}
           placeholder={"Enter your name"}
-          onChangeText={(value) => setName(value)} // Using setState here
+          onChangeText={(value) => setName(value)}
           error_msg={nameError}
         />
 
@@ -124,7 +140,7 @@ const SignUp = () => {
         <InputField
           label={"Email"}
           placeholder={"Enter your email"}
-          onChangeText={(value) => setEmail(value)} // Using setState here
+          onChangeText={(value) => setEmail(value)} 
           error_msg={emailError}
         />
 
@@ -132,21 +148,19 @@ const SignUp = () => {
         <InputField
           label={"Password"}
           placeholder={"Enter password"}
-          onChangeText={(value) => setPassword(value)} // Using setState here
+          onChangeText={(value) => setPassword(value)} 
           secureTextEntry={true}
           error_msg={passwordError}
         />
 
-        {/* Confirm Password Input Field */}
         <InputField
           label={"Confirm password"}
           placeholder={"Please confirm your password"}
-          onChangeText={(value) => setConfirmPassword(value)} // Using setState here
+          onChangeText={(value) => setConfirmPassword(value)} 
           secureTextEntry={true}
           error_msg={confirmPasswordError}
         />
 
-        {/* Sign Up Button */}
         <CustomButton
           loading={loading}
           title={"Sign Up"}
