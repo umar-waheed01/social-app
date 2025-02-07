@@ -10,6 +10,7 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
+    "@clerk/clerk-expo": "^2.7.5",
     "@react-native-async-storage/async-storage": "^2.1.0",
     "@react-navigation/bottom-tabs": "^7.2.0",
     "@react-navigation/native": "^7.0.14",
@@ -21,7 +22,9 @@
     "expo-av": "^15.0.2",
     "expo-file-system": "^18.0.7",
     "expo-image-picker": "^16.0.4",
+    "expo-linking": "^7.0.5",
     "expo-status-bar": "~2.0.1",
+    "expo-web-browser": "^14.0.2",
     "moment": "^2.30.1",
     "patch-package": "^8.0.0",
     "react": "18.3.1",
