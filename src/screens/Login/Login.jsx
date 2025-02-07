@@ -346,14 +346,25 @@ const Login = () => {
           variant="outlined"
           style={{ marginTop: 10 }}
         />
+         
+         <View style={{flexDirection:'row'}}>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
+          {loader ? (
+            <ActivityIndicator size="large" color="blue" />
+          ) : (
+            <CustomButton title="Sign in with Google" onPress={onPress} variant="outlined" />
+          )}
+        </View>
 
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
           {loader ? (
             <ActivityIndicator size="large" color="blue" />
           ) : (
-            <CustomButton title="Sign in with Google" onPress={onPress} />
+            <CustomButton title="Sign in with Facebook" variant="outlined" />
           )}
         </View>
+        </View>
+
       </ScrollView>
     </View>
   );
