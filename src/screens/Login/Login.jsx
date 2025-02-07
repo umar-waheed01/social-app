@@ -356,13 +356,13 @@ const Login = () => {
           )}
         </View>
 
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
+        {/* <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', marginTop: 20 }}>
           {loader ? (
             <ActivityIndicator size="large" color="blue" />
           ) : (
             <CustomButton title="Sign in with Facebook" variant="outlined" />
           )}
-        </View>
+        </View> */}
         </View>
 
       </ScrollView>

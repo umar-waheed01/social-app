@@ -14,9 +14,9 @@ import EditProfile from './src/components/EditProfile';
 
 const Stack = createNativeStackNavigator();
 
-const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY || 'pk_test_a2Vlbi1jaGlja2VuLTUzLmNsZXJrLmFjY291bnRzLmRldiQ';
+const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY || 'pk_test_c2hpbmluZy1idWNrLTczLmNsZXJrLmFjY291bnRzLmRldiQ';
 console.log("++++++++",publishableKey)
-if (!publishableKey || publishableKey === 'pk_test_a2Vlbi1jaGlja2VuLTUzLmNsZXJrLmFjY291bnRzLmRldiQ') {
+if (!publishableKey || publishableKey === 'pk_test_c2hpbmluZy1idWNrLTczLmNsZXJrLmFjY291bnRzLmRldiQ') {
   console.warn('Warning: Missing Clerk Publishable Key!');
 }
 
@@ -37,6 +37,6 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
     </ClerkProvider>
-    </AuthProvider>
+  </AuthProvider> 
   );
 }
