@@ -80,17 +80,22 @@ const Dashboard = () => {
 
 
   useEffect(() => {
-    supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
       console.log("session user", session?.user);
       if (session) {
         setAuth(session?.user); 
-        updateUserData(session?.user, session?.user_metadata?.email)
+        updateUserData(session?.user, session?.user_metadata?.email);
       } else {
         setAuth(null); 
-        Navigation.navigate("Login")
+        Navigation.replace("Login");  // replace use karo taa ke infinite loop na bane
       }
     });
-  },[]);
+  
+    return () => {
+      authListener?.subscription?.unsubscribe(); // unsubscribe kare taa ke loop na bane
+    };
+  }, []);
+  
 
   const updateUserData =async (user,email) =>{
     let res = await getuserData(user?.id)

@@ -233,12 +233,12 @@ const Login = () => {
   useEffect(() => {
     if (isSignedIn) {
       console.log('User is signed in:', user);
-      navigation.navigate('Dashboard');  
-    }
-  }, [isSignedIn, user]);
+      navigation.replace('Dashboard');      }
+  }, [isSignedIn]);
+  
 
-  const [email, setEmail] = useState("umar009@gmail.com");
-  const [password, setPassword] = useState("098098098");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const [loading, setLoading] = useState(false);
   const [emailError, setEmailError] = useState("");
